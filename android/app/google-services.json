@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "666236032377",
+    "project_id": "todo-app-d-fine",
+    "storage_bucket": "todo-app-d-fine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666236032377:android:baaef58614f9aa31348ba8",
+        "android_client_info": {
+          "package_name": "com.example.d_fine_machine_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0vWbx0RJc7fPElY1KPo0cH4Y7SfUgCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
