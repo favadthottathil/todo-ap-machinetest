@@ -1,6 +1,5 @@
 // import 'dart:math';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_fine_machine_test/Model/todo_model.dart';
 import 'package:d_fine_machine_test/res/Colors/color.dart';
@@ -13,16 +12,9 @@ import 'package:intl/intl.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class AllTask extends StatefulWidget {
-  AllTask({super.key, required this.todoCategory});
+  const AllTask({super.key, required this.todoCategory});
 
   final TodoCategory todoCategory;
-
-  List favad = [
-    1,
-    2,
-    3,
-    4
-  ];
 
   @override
   State<AllTask> createState() => _AllTaskState();
@@ -92,6 +84,17 @@ class _AllTaskState extends State<AllTask> {
                   todosByDate[formatedDate]!.add(todo);
                 }
 
+                // Delete the data before the current date
+
+                todosByDate.removeWhere((dateKey, todosForDate) {
+                  if (dateKey == 'Today' || dateKey == 'Tomorrow') {
+                    return false; // Keep 'Today' and 'Tomorrow' entries
+                  } else {
+                    DateTime parsedDate = DateFormat('E, MMM d, y').parse(dateKey);
+                    return parsedDate.isBefore(DateTime.now()); // Remove entries with dates before today
+                  }
+                });
+
                 return Column(
                     children: todosByDate.entries
                         .map(
@@ -117,7 +120,7 @@ class _AllTaskState extends State<AllTask> {
                                         width: 30,
                                         child: RoundCheckBox(
                                           onTap: (selected) {
-                                            Todo todoModel = Todo(title: todo.title, isCompleted: selected!, timestamp: todo.timestamp,uid: todo.uid);
+                                            Todo todoModel = Todo(title: todo.title, isCompleted: selected!, timestamp: todo.timestamp, uid: todo.uid);
 
                                             FirebaseServices().updateTodo(todo: todoModel, uid: widget.todoCategory.uid!);
                                           },

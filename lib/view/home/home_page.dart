@@ -50,7 +50,10 @@ class HomePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const CircleAvatar(radius: 20),
+                            const CircleAvatar(
+                              radius: 20,
+                              backgroundColor: AppColors.blackColor,
+                            ),
                             const Text('Categories', style: AppTextStyle.textStyle3),
                             IconButton(
                               onPressed: () {
@@ -58,21 +61,27 @@ class HomePage extends StatelessWidget {
                                   if (value == '') Get.to(const Login());
                                 });
                               },
-                              icon: const Icon(Icons.search),
+                              icon: const Icon(Icons.logout),
                             )
                           ],
                         ),
                         sizedBoxh30,
-                        const Card(
+                        Card(
                           elevation: 10,
                           child: Padding(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             child: ListTile(
-                              leading: CircleAvatar(
-                                radius: 40,
+                              leading: Container(
+                                height: 60,
+                                width: 60,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.amber,
+                                  image: DecorationImage(image: AssetImage('Asset/tamim.jpeg'), fit: BoxFit.cover),
+                                ),
                               ),
-                              title: Text('"The memories is a shield and life helper."'),
-                              subtitle: Text('Tamim Al-Barghouti'),
+                              title: const Text('"The memories is a shield and life helper."'),
+                              subtitle: const Text('Tamim Al-Barghouti'),
                             ),
                           ),
                         ),

@@ -11,9 +11,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final fullNameController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -65,6 +70,15 @@ class SignUpScreen extends StatelessWidget {
       Utils.snackBar('Error', 'PassWord does not match');
       return 'PassWord does not match';
     }
+  }
+
+  @override
+  void dispose() {
+    fullNameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    confirmPassController.clear();
+    super.dispose();
   }
 
   @override

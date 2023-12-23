@@ -52,13 +52,21 @@ class _LoginState extends State<Login> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    emailController.clear();
+    passwordController.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(
       () => StreamBuilder<User?>(
           stream: authController.stream().value,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return  HomePage();
+              return HomePage();
             }
 
             return Scaffold(
