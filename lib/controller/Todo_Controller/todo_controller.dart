@@ -6,7 +6,7 @@ class TodoController extends GetxController {
 
   var emoji = '📝'.obs;
 
-  var todoTimeStamp = 0.obs;
+  var todoTimeStamp = DateTime.now().millisecondsSinceEpoch.obs;
 
   final todoTextController = TextEditingController().obs;
 

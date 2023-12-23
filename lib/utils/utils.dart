@@ -67,11 +67,18 @@ class Utils {
                     const Spacer(),
                     TextButton(
                         onPressed: () {
-                          Todo todo = Todo(title: todoController.todoTextController.value.text.trim(), isCompleted: false, timestamp: todoController.todoTimeStamp.value);
+                          Todo todo = Todo(
+                            title: todoController.todoTextController.value.text.trim(),
+                            isCompleted: false,
+                            timestamp: todoController.todoTimeStamp.value,
+                            uid: '',
+                          );
 
                           FirebaseServices().addTodo(uid: todoCategory.uid!, todo: todo).then((_) {
                             Utils.snackBar('New Todo Added', 'Todo Added to Your List');
                             Navigator.pop(context);
+                            todoController.todoTimeStamp.value = DateTime.now().millisecondsSinceEpoch;
+                            todoController.todoTextController.value.text = '';
                           });
                         },
                         child: const Text('ok')),

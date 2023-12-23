@@ -5,6 +5,7 @@ import 'package:d_fine_machine_test/res/Sizedbox/sizedboxes.dart';
 import 'package:d_fine_machine_test/res/style/buttonstyle.dart';
 import 'package:d_fine_machine_test/res/style/textstyle.dart';
 import 'package:d_fine_machine_test/utils/utils.dart';
+import 'package:d_fine_machine_test/view/auth/login_screen.dart';
 import 'package:d_fine_machine_test/view/home/home_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -137,23 +138,26 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 sizedBoxh30,
                 Center(
-                  child: RichText(
-                    text: const TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Already have an account?",
-                          style: AppTextStyle.textStyle2,
-                        ),
-                        TextSpan(
-                          text: ' Login',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.underline,
+                  child: InkWell(
+                    onTap: () => Get.to(const Login()),
+                    child: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Already have an account?",
+                            style: AppTextStyle.textStyle2,
                           ),
-                        ),
-                      ],
+                          TextSpan(
+                            text: ' Login',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

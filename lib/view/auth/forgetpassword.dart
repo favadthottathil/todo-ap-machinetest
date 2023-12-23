@@ -1,14 +1,41 @@
 import 'package:d_fine_machine_test/components/textfield.dart';
+import 'package:d_fine_machine_test/controller/auth_controller/auth_controller.dart';
 import 'package:d_fine_machine_test/res/Colors/color.dart';
 import 'package:d_fine_machine_test/res/Sizedbox/sizedboxes.dart';
 import 'package:d_fine_machine_test/res/style/buttonstyle.dart';
 import 'package:d_fine_machine_test/res/style/textstyle.dart';
+import 'package:d_fine_machine_test/utils/utils.dart';
+import 'package:d_fine_machine_test/view/auth/login_screen.dart';
+import 'package:d_fine_machine_test/view/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ForgetPassword extends StatelessWidget {
+class ForgetPassword extends StatefulWidget {
   ForgetPassword({super.key});
 
+  @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
   final emailController = TextEditingController();
+
+  final authController = Get.put(AuthController());
+
+  Future<String> forgetPassword(AuthController authController, String email) async {
+    final msg = await authController.resetPassword(email);
+    // authController.setLoading = true;
+
+    if (msg == '') {
+      authController.setLoading = false;
+      Utils.snackBar('Email Send', 'Email send successfully');
+      return msg;
+    }
+
+    Utils.snackBar('PassWord ResetFailed', msg);
+
+    return msg;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +53,7 @@ class ForgetPassword extends StatelessWidget {
                   child: Text('Forget Password', style: AppTextStyle.textStyle3),
                 ),
                 sizedBoxh30,
-                 CustomTextField(hint: 'Email',controller: emailController),
+                CustomTextField(hint: 'Email', controller: emailController),
                 sizedBoxh30,
                 const SizedBox(
                     child: Text(
@@ -36,7 +63,13 @@ class ForgetPassword extends StatelessWidget {
                 )),
                 sizedBoxh30,
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    forgetPassword(authController, emailController.text.trim()).then((value) {
+                      if (value == '') {
+                        Get.to(Login());
+                      }
+                    });
+                  },
                   style: AppButtonStyle.buttonStyle1,
                   child: const Text(
                     'CONTINUE',
@@ -45,23 +78,26 @@ class ForgetPassword extends StatelessWidget {
                 ),
                 sizedBoxh30,
                 Center(
-                  child: RichText(
-                    text: const TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Don't have an account Register?",
-                          style: AppTextStyle.textStyle2,
-                        ),
-                        TextSpan(
-                          text: ' Login',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.underline,
+                  child: InkWell(
+                    onTap: () => Get.to(SignUpScreen()),
+                    child: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Don't have an account Register?",
+                            style: AppTextStyle.textStyle2,
                           ),
-                        ),
-                      ],
+                          TextSpan(
+                            text: 'Sign Up',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
